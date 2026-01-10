@@ -38,23 +38,6 @@ This project is a hybrid desktop-web application that combines an educational qu
 * **Data Processing:** NumPy (for game logic)
 * **Database:** SQLite
 
-## 📂 Project Structure
-
-```text
-├── app.py                  # Main application logic, routes, and PyQt wrapper
-├── db/                     # SQLite Databases
-│   ├── UserDB.db           # Stores user credentials
-│   └── quiz.db             # Stores quiz questions and answers
-├── templates/              # HTML Templates (Jinja2)
-│   ├── login_page.html     # User login
-│   ├── quiz_selection.html # Subject selection
-│   ├── four_connect.html   # Connect 4 game interface
-│   └── ...                 # Other templates
-└── static/
-    └── css/                # Custom Stylesheets
-        ├── LPstyles.css    # Login page styles
-        └── SPstyles.css    # Signup page styles
-
 ## 🚀 Installation & Setup
 
 1.  **Clone the repository:**
@@ -108,3 +91,20 @@ Contributions are welcome! Please follow these steps:
 ## 📄 License
 
 This project is open-source and available under the [MIT License](LICENSE).
+
+## 📂 Project Structure
+
+```text
+├── app.py                  # Main application logic, routes, and PyQt wrapper
+├── db/                     # SQLite Databases
+│   ├── UserDB.db           # Stores user credentials
+│   └── quiz.db             # Stores quiz questions and answers
+├── templates/              # HTML Templates (Jinja2)
+│   ├── login_page.html     # User login
+│   ├── quiz_selection.html # Subject selection
+│   ├── four_connect.html   # Connect 4 game interface
+│   └── ...                 # Other templates
+└── static/
+    └── css/                # Custom Stylesheets
+        ├── LPstyles.css    # Login page styles
+        └── SPstyles.css    # Signup page styles
