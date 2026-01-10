@@ -54,3 +54,57 @@ This project is a hybrid desktop-web application that combines an educational qu
     └── css/                # Custom Stylesheets
         ├── LPstyles.css    # Login page styles
         └── SPstyles.css    # Signup page styles
+
+## 🚀 Installation & Setup
+
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/maazx06/Flask-Quiz-Minigame-Suite.git](https://github.com/maazx06/Flask-Quiz-Minigame-Suite.git)
+    cd Flask-Quiz-Minigame-Suite
+    ```
+
+2.  **Create a virtual environment (optional but recommended):**
+    ```bash
+    python -m venv venv
+    # Windows:
+    venv\Scripts\activate
+    # Mac/Linux:
+    source venv/bin/activate 
+    ```
+
+3.  **Install dependencies:**
+    ```bash
+    pip install Flask Flask-SQLAlchemy PyQt5 PyQtWebEngine werkzeug
+    ```
+
+4.  **Run the application:**
+    ```bash
+    python app.py
+    ```
+    *Note: This will launch the Flask server in a background thread and open the PyQt5 desktop window.*
+
+## 🕹️ How to Use
+
+* **Launch the App:** Run the script (`app.py`) to open the desktop window.
+* **Sign Up:** Click "Sign up" to create a new account. 
+    * *Requirement:* Password must be 8+ characters and contain an uppercase letter, a lowercase letter, a number, and a special character.
+* **Login:** Use your new credentials to access the main menu.
+* **Take a Quiz:** Select a subject (Computer Science, Product Design, or Psychology) to test your knowledge.
+* **Play Games:** Navigate to the "Minigame Selection" screen to play:
+    * **Four Connect** (Strategy)
+    * **Hangman** (Word Puzzle)
+    * **Rock Paper Scissors** (Chance)
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1.  Fork the project.
+2.  Create your feature branch (`git checkout -b feature/AmazingFeature`).
+3.  Commit your changes (`git commit -m 'Add some AmazingFeature'`).
+4.  Push to the branch (`git push origin feature/AmazingFeature`).
+5.  Open a Pull Request.
+
+## 📄 License
+
+This project is open-source and available under the [MIT License](LICENSE).
