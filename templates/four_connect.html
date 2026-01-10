@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Four Connect</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        h1 {
+            color: #333;
+        }
+        #game-board {
+            display: grid;
+            grid-template-columns: repeat(7, 100px);
+            grid-gap: 5px;
+            margin-bottom: 20px;
+        }
+        .slot {
+            width: 100px;
+            height: 100px;
+            background-color: #ddd;
+            border: 2px solid #333;
+            border-radius: 50%;
+        }
+        #column-buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 10px;
+        }
+        .column-btn {
+            padding: 10px;
+            font-size: 1rem;
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .column-btn:hover {
+            background-color: #555;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>Four Connect</h1>
+    <div id="message">Player's Turn (Red)</div>
+
+    <div id="column-buttons">
+        <!-- Column buttons to allow user to drop disc -->
+        <button class="column-btn" onclick="dropDisc(0)">Column 1</button>
+        <button class="column-btn" onclick="dropDisc(1)">Column 2</button>
+        <button class="column-btn" onclick="dropDisc(2)">Column 3</button>
+        <button class="column-btn" onclick="dropDisc(3)">Column 4</button>
+        <button class="column-btn" onclick="dropDisc(4)">Column 5</button>
+        <button class="column-btn" onclick="dropDisc(5)">Column 6</button>
+        <button class="column-btn" onclick="dropDisc(6)">Column 7</button>
+    </div>
+
+    <div id="game-board">
+        <!-- Slots will be dynamically created here -->
+    </div>
+    <button id="reset-btn">Start New Game</button>
+
+    <script>
+        const rows = 6;
+        const columns = 7;
+        let board = Array.from({ length: rows }, () => Array(columns).fill(0)); // 0 for empty, 1 for player, 2 for bot
+        let currentPlayer = 1; // 1 is Player, 2 is Bot
+        const boardDiv = document.getElementById("game-board");
+        const messageDiv = document.getElementById("message");
+
+        function createBoard() {
+            boardDiv.innerHTML = "";
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < columns; col++) {
+                    const slot = document.createElement("div");
+                    slot.classList.add("slot");
+                    boardDiv.appendChild(slot);
+                }
+            }
+        }
+
+        function updateBoard() {
+            const slots = document.querySelectorAll(".slot");
+            let index = 0;
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < columns; col++) {
+                    const slot = slots[index++];
+                    if (board[row][col] === 1) {
+                        slot.style.backgroundColor = "red";
+                    } else if (board[row][col] === 2) {
+                        slot.style.backgroundColor = "yellow";
+                    } else {
+                        slot.style.backgroundColor = "#ddd";
+                    }
+                }
+            }
+        }
+
+        function dropDisc(col) {
+            fetch("/player_move", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ column: col })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                    return;
+                }
+
+                board = data.board;
+                updateBoard();
+                if (data.message.includes("wins")) {
+                    messageDiv.textContent = data.message;
+                } else {
+                    messageDiv.textContent = `Player's Turn (Red)`;
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        }
+
+        function resetGame() {
+            fetch("/new_game", { method: "POST" })
+                .then(response => response.json())
+                .then(data => {
+                    board = data.board;
+                    updateBoard();
+                    messageDiv.textContent = "Player's Turn (Red)";
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        document.getElementById("reset-btn").addEventListener("click", resetGame);
+
+        // Initialize the game board
+        createBoard();
+        resetGame(); // Start a new game on page load
+    </script>
+</body>
+</html>

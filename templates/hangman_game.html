@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hangman Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        h1 {
+            color: #333;
+        }
+        #word-display {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        #letter-buttons {
+            display: grid;
+            grid-template-columns: repeat(7, 50px);
+            grid-gap: 10px;
+        }
+        .letter-btn {
+            padding: 10px;
+            font-size: 1.2rem;
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .letter-btn:hover {
+            background-color: #555;
+        }
+        #result-message {
+            margin-top: 20px;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hangman Game</h1>
+    <div id="word-display">_ _ _ _ _ _</div>
+    <div id="letter-buttons">
+        <!-- JavaScript will dynamically generate letter buttons -->
+    </div>
+    <div id="result-message"></div>
+    <a href="{{ url_for('minigame_selection') }}">Back to Minigame Selection</a>
+
+    <script>
+        const word = "PYTHON";
+        let guesses = "";
+        const maxAttempts = 6;
+        let attempts = 0;
+
+        const wordDisplay = document.getElementById("word-display");
+        const resultMessage = document.getElementById("result-message");
+
+        function updateWordDisplay() {
+            const display = word.split("").map(letter => (guesses.includes(letter) ? letter : "_")).join(" ");
+            wordDisplay.textContent = display;
+
+            if (!display.includes("_")) {
+                resultMessage.textContent = "You win!";
+                disableButtons();
+            }
+        }
+
+        function handleGuess(letter) {
+            if (!guesses.includes(letter)) {
+                guesses += letter;
+
+                if (!word.includes(letter)) {
+                    attempts++;
+                }
+
+                updateWordDisplay();
+
+                if (attempts >= maxAttempts) {
+                    resultMessage.textContent = `You lose! The word was: ${word}`;
+                    disableButtons();
+                }
+            }
+        }
+
+        function disableButtons() {
+            const buttons = document.querySelectorAll(".letter-btn");
+            buttons.forEach(button => button.disabled = true);
+        }
+
+        function generateLetterButtons() {
+            const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            const letterButtons = document.getElementById("letter-buttons");
+            alphabet.split("").forEach(letter => {
+                const btn = document.createElement("button");
+                btn.textContent = letter;
+                btn.classList.add("letter-btn");
+                btn.onclick = () => handleGuess(letter);
+                letterButtons.appendChild(btn);
+            });
+        }
+
+        generateLetterButtons();
+        updateWordDisplay();
+    </script>
+</body>
+</html>

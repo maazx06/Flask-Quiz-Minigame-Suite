@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select a Minigame</title>
+</head>
+<body>
+    <h1>Select a Minigame</h1>
+    <form method="get">
+        <button formaction="{{ url_for('four_connect') }}">Minigame 1: Four Connect</button>
+        <button formaction="{{ url_for('rock_paper_scissors') }}">Minigame 2: Rock Paper Scissors</button>
+        <button formaction="{{ url_for('hangman') }}">Minigame 3: Hangman</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="static/css/LPstyles.css">
+</head>
+<body>
+    <div class="login-container">
+        <h2>Log in form</h2>
+        <div class="login-form">
+            <h3 class="login-header">Login Page</h3>
+            <a href="/help" class="help-button">?</a>
+            <form action="/login" method="POST">
+                <label for="username" class="label">Username</label>
+                <input type="text" id="username" name="username" required class="input-field"><br>
+                
+                <label for="password" class="label">Password</label>
+                <input type="password" id="password" name="password" required class="input-field"><br>
+                
+                <div class="button-container">
+                    <input type="submit" value="Login" class="form-button">
+                    <a href="/signup" class="form-button">Sign up</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

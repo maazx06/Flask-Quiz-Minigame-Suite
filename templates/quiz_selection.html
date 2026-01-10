@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Quiz Subject</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .category {
+            margin-bottom: 30px;
+        }
+        .subject-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+        .subject-item {
+            padding: 15px;
+            background-color: #ffffff;
+            border: 2px solid #007bff;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .subject-item:hover {
+            background-color: #007bff;
+            color: white;
+            transform: translateY(-5px);
+        }
+        input[type="radio"] {
+            display: none;
+        }
+        input[type="radio"]:checked + label {
+            background-color: #007bff;
+            color: white;
+            transform: translateY(-5px);
+        }
+        input[type="submit"] {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 30px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Select a Quiz Subject</h1>
+    
+    <form action="/start_quiz" method="POST">
+        <div class="category">
+            <div class="subject-grid">
+                <input type="radio" id="cs" name="subject" value="Computer Science" required>
+                <label for="cs" class="subject-item">Computer Science</label>
+                
+                <input type="radio" id="pd" name="subject" value="Product Design" required>
+                <label for="pd" class="subject-item">Product Design</label>
+                
+                <input type="radio" id="psychology" name="subject" value="Psychology" required>
+                <label for="psychology" class="subject-item">Psychology</label>
+            </div>
+        </div>
+        <input type="submit" value="Start Quiz">
+    </form>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        h1 {
+            color: #333;
+        }
+        .options {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        .option-btn {
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .option-btn:hover {
+            background-color: #555;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Rock Paper Scissors</h1>
+    <div class="options">
+        <button class="option-btn" onclick="makeMove('rock')">✊ Rock</button>
+        <button class="option-btn" onclick="makeMove('paper')">✋ Paper</button>
+        <button class="option-btn" onclick="makeMove('scissors')">✌️ Scissors</button>
+    </div>
+    <div id="result"></div>
+    <a href="{{ url_for('minigame_selection') }}">Back to Minigame Selection</a>
+
+    <script>
+        const options = ["rock", "paper", "scissors"];
+
+        function makeMove(playerMove) {
+            const botMove = options[Math.floor(Math.random() * options.length)];
+            const result = determineWinner(playerMove, botMove);
+
+            document.getElementById("result").textContent = `You chose ${playerMove}, Bot chose ${botMove}. ${result}`;
+        }
+
+        function determineWinner(playerMove, botMove) {
+            if (playerMove === botMove) {
+                return "It's a tie!";
+            }
+            if (
+                (playerMove === "rock" && botMove === "scissors") ||
+                (playerMove === "paper" && botMove === "rock") ||
+                (playerMove === "scissors" && botMove === "paper")
+            ) {
+                return "You win!";
+            }
+            return "You lose!";
+        }
+    </script>
+</body>
+</html>
